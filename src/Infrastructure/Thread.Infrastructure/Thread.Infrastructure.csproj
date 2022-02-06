@@ -26,4 +26,9 @@
       <ProjectReference Include="..\..\Core\Thread.Interfaces\Thread.Interfaces.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Persistence\Config" />
+      <Folder Include="Persistence\Migrations" />
+    </ItemGroup>
+
 </Project>

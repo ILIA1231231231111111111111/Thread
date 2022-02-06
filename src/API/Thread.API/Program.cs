@@ -21,8 +21,9 @@ try
     var host = BuildWebHost(configuration, args);
 
     using var scope = host.Services.CreateScope();
-     await scope.ServiceProvider.MsSqlIdentityDatabaseMigrateAsync();
-    
+    await scope.ServiceProvider.MsSqlIdentityDatabaseMigrateAsync();
+    await scope.ServiceProvider.MsSqlThreadDatabaseMigrateAsync();
+
     Log.Information("Starting web host ({ApplicationContext})...", Program.AppName);
     host.Run();
 

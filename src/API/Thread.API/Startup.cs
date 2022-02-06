@@ -11,6 +11,8 @@ using Thread.Core.Conts;
 using Thread.Infrastructure.Identity;
 using Thread.Infrastructure.Identity.Context;
 using Thread.Infrastructure.Identity.Services;
+using Thread.Infrastructure.Persistence.Context;
+using Thread.Interfaces.Context;
 using Thread.Interfaces.Identity;
 
 #nullable enable
@@ -29,10 +31,11 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddScoped<ITokenClaimsService, TokenClaimsService>();
-
+        services.AddScoped<IThreadDbContext, ThreadDbContext>();
+        
         services.AddDbContext<AppIdentityDbContext>();
-
-        // Identity 
+        services.AddDbContext<ThreadDbContext>();
+        
         services
             .AddDefaultIdentity<ApplicationUser>()
             .AddEntityFrameworkStores<AppIdentityDbContext>()
