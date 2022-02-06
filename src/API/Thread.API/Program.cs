@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore;
 using Serilog;
 using Thread.API;
+using Thread.Infrastructure.Extensions;
 
 var configuration = GetConfiguration();
 
@@ -11,6 +12,9 @@ try
     Log.Information("Configuring web host ({ApplicationContext})...", Program.AppName);
     var host = BuildWebHost(configuration, args);
 
+    using var scope = host.Services.CreateScope();
+     await scope.ServiceProvider.MsSqlIdentityDatabaseMigrateAsync();
+    
     Log.Information("Starting web host ({ApplicationContext})...", Program.AppName);
     host.Run();
 

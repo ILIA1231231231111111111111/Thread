@@ -23,6 +23,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\Core\Thread.Core\Thread.Core.csproj" />
+      <ProjectReference Include="..\..\Core\Thread.Interfaces\Thread.Interfaces.csproj" />
     </ItemGroup>
 
 </Project>
