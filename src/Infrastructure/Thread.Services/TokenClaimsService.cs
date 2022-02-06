@@ -4,11 +4,12 @@ using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Thread.Core.Conts;
+using Thread.Core.Entities;
 using Thread.Interfaces.Identity;
 
 #nullable enable
 
-namespace Thread.Infrastructure.Identity.Services;
+namespace Thread.Services;
 
 public class TokenClaimsService : ITokenClaimsService
 {

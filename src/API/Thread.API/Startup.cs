@@ -8,12 +8,12 @@ using Serilog;
 using Thread.API.Common.Extensions;
 using Thread.API.Common.Filters;
 using Thread.Core.Conts;
-using Thread.Infrastructure.Identity;
+using Thread.Core.Entities;
 using Thread.Infrastructure.Identity.Context;
-using Thread.Infrastructure.Identity.Services;
 using Thread.Infrastructure.Persistence.Context;
 using Thread.Interfaces.Context;
 using Thread.Interfaces.Identity;
+using Thread.Services;
 
 #nullable enable
 

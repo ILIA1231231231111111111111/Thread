@@ -7,9 +7,16 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Core\Thread.Interfaces\Thread.Interfaces.csproj" />
       <ProjectReference Include="..\..\Infrastructure\Thread.Infrastructure\Thread.Infrastructure.csproj" />
+      <ProjectReference Include="..\..\Infrastructure\Thread.Services\Thread.Services.csproj" />
       <ProjectReference Include="..\Thread.DTOs\Thread.DTOs.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Identity" />
+      <Folder Include="Token" />
+      <Folder Include="User\Commands" />
+      <Folder Include="User\Queries" />
     </ItemGroup>
 
 </Project>
