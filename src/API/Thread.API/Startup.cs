@@ -11,13 +11,14 @@ using Thread.Infrastructure.Identity.Services;
 using Thread.Interfaces.Identity;
 
 namespace Thread.API;
+
 public class Startup
 {
     public Startup(IConfiguration configuration)
     {
         Configuration = configuration;
     }
-    
+
     public IConfiguration Configuration { get; }
 
     public void ConfigureServices(IServiceCollection services)
@@ -25,9 +26,9 @@ public class Startup
         services.AddScoped<ITokenClaimsService, TokenClaimsService>();
 
         services.AddDbContext<AppIdentityDbContext>();
-        
+
         // Identity 
-       services
+        services
             .AddDefaultIdentity<ApplicationUser>()
             .AddEntityFrameworkStores<AppIdentityDbContext>()
             .AddSignInManager<SignInManager<ApplicationUser>>()
@@ -49,7 +50,7 @@ public class Startup
             options.SignIn.RequireConfirmedEmail = false;
             options.SignIn.RequireConfirmedPhoneNumber = false;
         });
-        
+
         var key = Encoding.ASCII.GetBytes(AuthorizationConstants.JWT_SECRET_KEY);
         services.AddAuthentication(config => { config.DefaultScheme = JwtBearerDefaults.AuthenticationScheme; })
             .AddJwtBearer(config =>
@@ -64,8 +65,14 @@ public class Startup
                     ValidateAudience = false
                 };
             });
-
-        services.AddControllers();
+        
+        services.AddAuthorization(options =>
+        {
+            options.FallbackPolicy = new AuthorizationPolicyBuilder()
+                .RequireAuthenticatedUser()
+                .Build();
+        });
+        
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen(c =>
         {
@@ -111,17 +118,14 @@ public class Startup
 
         app.UseHsts();
         app.UseHttpsRedirection();
-        
+
         app.UseStaticFiles();
-        
+
         app.UseRouting();
-        
+
         app.UseAuthentication();
         app.UseAuthorization();
-        
-        app.UseEndpoints(endpoints =>
-        {
-            endpoints.MapControllers();
-        });
+
+        app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
     }
 }
