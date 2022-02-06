@@ -6,4 +6,10 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\Core\Thread.Interfaces\Thread.Interfaces.csproj" />
+      <ProjectReference Include="..\..\Infrastructure\Thread.Infrastructure\Thread.Infrastructure.csproj" />
+      <ProjectReference Include="..\Thread.DTOs\Thread.DTOs.csproj" />
+    </ItemGroup>
+
 </Project>

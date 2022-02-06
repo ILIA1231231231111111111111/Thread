@@ -1,25 +1,51 @@
-var builder = WebApplication.CreateBuilder(args);
+using Microsoft.AspNetCore;
+using Serilog;
+using Thread.API;
 
-// Add services to the container.
+var configuration = GetConfiguration();
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+// Log.Logger = CreateSerilogLogger(configuration);
 
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+try
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    Log.Information("Configuring web host ({ApplicationContext})...", Program.AppName);
+    var host = BuildWebHost(configuration, args);
+
+    Log.Information("Starting web host ({ApplicationContext})...", Program.AppName);
+    host.Run();
+
+    return 0;
+}
+catch (Exception ex)
+{
+    Log.Fatal(ex, "Program terminated unexpectedly ({ApplicationContext})!", Program.AppName);
+    return 1;
+}
+finally
+{
+    Log.CloseAndFlush();
 }
 
-app.UseHttpsRedirection();
+IWebHost BuildWebHost(IConfiguration configuration, string[] args) =>
+    WebHost.CreateDefaultBuilder(args)
+        .CaptureStartupErrors(false)
+        .ConfigureAppConfiguration(x => x.AddConfiguration(configuration))
+        .UseStartup<Startup>()
+        .UseSerilog()
+        .Build();
 
-app.UseAuthorization();
+IConfiguration GetConfiguration()
+{
+    var builder = new ConfigurationBuilder()
+        .SetBasePath(Directory.GetCurrentDirectory())
+        .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+        .AddEnvironmentVariables();
 
-app.MapControllers();
+    return builder.Build();
+}
 
-app.Run();
+public partial class Program
+{
+    private static readonly string _namespace = typeof(Startup).Namespace;
+    public static readonly string AppName = _namespace.Substring(_namespace.LastIndexOf('.', _namespace.LastIndexOf('.') - 1) + 1);
+}

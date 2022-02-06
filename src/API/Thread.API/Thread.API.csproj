@@ -7,7 +7,13 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Serilog.AspNetCore" Version="4.1.0" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Application\Thread.Application\Thread.Application.csproj" />
+      <ProjectReference Include="..\..\Core\Thread.Core\Thread.Core.csproj" />
     </ItemGroup>
 
 </Project>
