@@ -2,6 +2,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Thread.Infrastructure.Identity.Context;
 
+#nullable enable
+
 namespace Thread.Infrastructure.Extensions;
 
 public static class AutomatedMigration

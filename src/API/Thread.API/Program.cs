@@ -4,6 +4,8 @@ using Serilog.Events;
 using Thread.API;
 using Thread.Infrastructure.Extensions;
 
+#nullable enable
+
 var configuration = GetConfiguration();
 
 Log.Logger = new LoggerConfiguration()

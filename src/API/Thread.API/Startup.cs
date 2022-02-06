@@ -11,6 +11,8 @@ using Thread.Infrastructure.Identity.Context;
 using Thread.Infrastructure.Identity.Services;
 using Thread.Interfaces.Identity;
 
+#nullable enable
+
 namespace Thread.API;
 
 public class Startup

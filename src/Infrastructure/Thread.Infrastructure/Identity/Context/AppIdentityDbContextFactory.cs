@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
+#nullable enable
+
 namespace Thread.Infrastructure.Identity.Context;
 
 public class AppIdentityDbContextFactory : IDesignTimeDbContextFactory<AppIdentityDbContext>

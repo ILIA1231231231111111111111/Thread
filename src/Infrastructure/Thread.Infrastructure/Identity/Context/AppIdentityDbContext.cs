@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
+#nullable enable
+
 namespace Thread.Infrastructure.Identity.Context;
 
 public class AppIdentityDbContext : IdentityUserContext<ApplicationUser, Guid>
