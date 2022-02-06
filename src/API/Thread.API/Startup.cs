@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using Thread.API.Common.Extensions;
+using Thread.API.Common.Filters;
 using Thread.Core.Conts;
 using Thread.Infrastructure.Identity;
 using Thread.Infrastructure.Identity.Context;
@@ -69,14 +70,19 @@ public class Startup
                     ValidateAudience = false
                 };
             });
-        
+
         services.AddAuthorization(options =>
         {
             options.FallbackPolicy = new AuthorizationPolicyBuilder()
                 .RequireAuthenticatedUser()
                 .Build();
         });
-        
+
+        services.AddControllers(config =>
+        {
+            config.Filters.Add<ValidateRequestModelFilter>();
+        });
+
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen(c =>
         {
@@ -119,11 +125,11 @@ public class Startup
             app.UseSwagger();
             app.UseSwaggerUI();
         }
-        
+
         app.UseSerilogRequestLogging();
 
         app.UseCustomExceptionHandler();
-        
+
         app.UseHsts();
         app.UseHttpsRedirection();
 
