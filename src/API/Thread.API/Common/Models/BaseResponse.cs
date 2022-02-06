@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Net;
+using System.Text.Json.Serialization;
 
 #nullable enable
 
@@ -6,7 +7,7 @@ namespace Thread.API.Common.Models;
 
 public abstract class BaseResponse
 {
-    protected BaseResponse(int code, bool succeeded, IEnumerable<string>? errors)
+    protected BaseResponse(HttpStatusCode code, bool succeeded, IEnumerable<string>? errors)
     {
         Code = code;
         Succeeded = succeeded;
@@ -20,7 +21,7 @@ public abstract class BaseResponse
     
 
     [JsonPropertyName("code")]
-    public int Code { get; set; }
+    public HttpStatusCode Code { get; set; }
     
     
     [JsonPropertyName("succeeded ")]

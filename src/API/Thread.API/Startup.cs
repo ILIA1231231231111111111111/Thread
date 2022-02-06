@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using Thread.API.Common.Extensions;
 using Thread.Core.Conts;
 using Thread.Infrastructure.Identity;
 using Thread.Infrastructure.Identity.Context;
@@ -120,6 +121,8 @@ public class Startup
         }
         
         app.UseSerilogRequestLogging();
+
+        app.UseCustomExceptionHandler();
         
         app.UseHsts();
         app.UseHttpsRedirection();

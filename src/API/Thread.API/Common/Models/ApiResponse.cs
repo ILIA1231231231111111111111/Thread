@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Net;
+using System.Text.Json.Serialization;
 
 #nullable enable
 
@@ -6,7 +7,7 @@ namespace Thread.API.Common.Models;
 
 public class ApiResponse<TData> : BaseResponse
 {
-    private ApiResponse(bool succeeded, int code, TData? data, IEnumerable<string>? errors) : base(code, succeeded, errors)
+    private ApiResponse(bool succeeded, HttpStatusCode code, TData? data, IEnumerable<string>? errors) : base(code, succeeded, errors)
     {
         Data = data;
     }
@@ -15,12 +16,12 @@ public class ApiResponse<TData> : BaseResponse
     [JsonPropertyName("data")]
     public TData? Data { get; set; }
 
-    public static ApiResponse<TData> Success(int code, TData? data)
+    public static ApiResponse<TData> Success(HttpStatusCode code, TData? data)
         => new ApiResponse<TData>(succeeded: true, code, data, errors: new List<string>());
 
     public static ApiResponse<TData> Success200(TData? data)
-        => Success(code: 200, data);
+        => Success(code: HttpStatusCode.OK, data);
 
-    public static ApiResponse<TData> Failure(int code, IEnumerable<string>? errors)
+    public static ApiResponse<TData> Failure(HttpStatusCode code, IEnumerable<string>? errors)
         => new ApiResponse<TData>(succeeded: false, code, data: default, errors);
 }
