@@ -1,11 +1,17 @@
 using Microsoft.AspNetCore;
 using Serilog;
+using Serilog.Events;
 using Thread.API;
 using Thread.Infrastructure.Extensions;
 
 var configuration = GetConfiguration();
 
-// Log.Logger = CreateSerilogLogger(configuration);
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+    .Enrich.FromLogContext()
+    .WriteTo.Console()
+    .WriteTo.File("./logs/log-.txt")
+    .CreateLogger();
 
 try
 {

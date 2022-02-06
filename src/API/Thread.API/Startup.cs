@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Serilog;
 using Thread.Core.Conts;
 using Thread.Infrastructure.Identity;
 using Thread.Infrastructure.Identity.Context;
@@ -115,7 +116,9 @@ public class Startup
             app.UseSwagger();
             app.UseSwaggerUI();
         }
-
+        
+        app.UseSerilogRequestLogging();
+        
         app.UseHsts();
         app.UseHttpsRedirection();
 
